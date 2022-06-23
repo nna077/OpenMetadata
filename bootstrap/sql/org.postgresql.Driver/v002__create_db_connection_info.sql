@@ -47,4 +47,4 @@ CREATE TABLE task_sequence (id SERIAL PRIMARY KEY, dummy varchar(1));
 INSERT INTO task_sequence (dummy) VALUES (0) RETURNING id;
 
 UPDATE policy_entity
-SET json = json - '{enabled,policyUrl}'::text[];
+SET json = json - '{policyUrl}'::text[];

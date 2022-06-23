@@ -45,4 +45,4 @@ CREATE TABLE task_sequence (id INT NOT NULL AUTO_INCREMENT, PRIMARY KEY (id));
 INSERT INTO task_sequence VALUES (0);
 
 UPDATE policy_entity
-SET policy_entity.json = JSON_REMOVE(JSON_REMOVE(policy_entity.json, '$.enabled'), '$.policyUrl');
+SET policy_entity.json = JSON_REMOVE(policy_entity.json, '$.policyUrl');
