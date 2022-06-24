@@ -617,7 +617,7 @@ const EntityTable = ({
                               <NonAdminAction
                                 html={getHtmlForNonAdminAction(Boolean(owner))}
                                 isOwner={hasEditAccess}
-                                permission={Operation.UpdateTags}
+                                permission={Operation.EditTags}
                                 position="left"
                                 trigger="click">
                                 <TagsContainer

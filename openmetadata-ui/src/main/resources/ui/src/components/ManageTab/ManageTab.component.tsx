@@ -245,7 +245,7 @@ const ManageTab: FunctionComponent<ManageProps> = ({
             }
             isOwner={hasEditAccess || Boolean(owner && !currentUser)}
             key={i}
-            permission={Operation.UpdateTags}
+            permission={Operation.EditTags}
             position="left">
             <CardListItem
               card={card}
@@ -282,7 +282,7 @@ const ManageTab: FunctionComponent<ManageProps> = ({
     return (
       isAdminUser ||
       isAuthDisabled ||
-      userPermissions[Operation.UpdateTeam] ||
+      userPermissions[Operation.TeamEditUsers] ||
       !hasEditAccess
     );
   };

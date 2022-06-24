@@ -313,12 +313,12 @@ const GlossaryDetails = ({ isHasAccess, glossary, updateGlossary }: props) => {
         <NonAdminAction
           html={<p>{TITLE_FOR_UPDATE_OWNER}</p>}
           isOwner={isOwner()}
-          permission={Operation.UpdateOwner}
+          permission={Operation.EditOwner}
           position="left">
           <Button
             data-testid="owner-dropdown"
             disabled={
-              !userPermissions[Operation.UpdateOwner] &&
+              !userPermissions[Operation.EditOwner] &&
               !isAuthDisabled &&
               !hasEditAccess
             }
@@ -436,7 +436,7 @@ const GlossaryDetails = ({ isHasAccess, glossary, updateGlossary }: props) => {
         )}
         <NonAdminAction
           isOwner={Boolean(glossary.owner)}
-          permission={Operation.UpdateTags}
+          permission={Operation.EditTags}
           position="bottom"
           title={TITLE_FOR_NON_OWNER_ACTION}
           trigger="click">

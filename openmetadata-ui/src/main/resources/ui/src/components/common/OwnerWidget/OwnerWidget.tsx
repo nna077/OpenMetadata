@@ -125,18 +125,18 @@ const OwnerWidget = ({
                   </Fragment>
                 }
                 isOwner={hasEditAccess}
-                permission={Operation.UpdateOwner}
+                permission={Operation.EditOwner}
                 position="left">
                 <Button
                   className={classNames('tw-underline', {
                     'tw-opacity-40':
-                      !userPermissions[Operation.UpdateOwner] &&
+                      !userPermissions[Operation.EditOwner] &&
                       !isAuthDisabled &&
                       !hasEditAccess,
                   })}
                   data-testid="owner-dropdown"
                   disabled={
-                    !userPermissions[Operation.UpdateOwner] &&
+                    !userPermissions[Operation.EditOwner] &&
                     !isAuthDisabled &&
                     !hasEditAccess
                   }

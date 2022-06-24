@@ -69,7 +69,7 @@ const DescriptionV1 = ({
       <NonAdminAction
         html={getHtmlForNonAdminAction(Boolean(owner))}
         isOwner={hasEditAccess}
-        permission={Operation.UpdateDescription}
+        permission={Operation.EditDescription}
         position="right">
         <button
           className="focus:tw-outline-none tw-text-primary"
