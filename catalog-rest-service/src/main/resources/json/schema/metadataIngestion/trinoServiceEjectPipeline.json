@@ -1,0 +1,22 @@
+{
+  "$id": "Bloomberg-Datalake-BVAL-189",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "TrinoServiceEjectPipeline",
+  "description": "Configuration To Eject Metadata(description, comment only) Back To Trino",
+  "definitions": {
+    "ejectConfigType": {
+      "description": "Eject Source Config Pipeline type",
+      "type": "string",
+      "enum": ["Eject"],
+      "default": "Eject"
+    }
+  },
+  "properties": {
+    "type": {
+      "description": "Pipeline type",
+      "$ref": "#/definitions/ejectConfigType",
+      "default": "Eject"
+    }
+  },
+  "additionalProperties": false
+}

@@ -29,7 +29,7 @@ class Loggers(Enum):
     INGESTION = "Ingestion"
     UTILS = "Utils"
     GREAT_EXPECTATIONS = "GreatExpectations"
-
+    EJECT = "Ejection"
 
 def ometa_logger():
     return logging.getLogger(Loggers.OMETA.value)
@@ -54,6 +54,8 @@ def utils_logger():
 def great_expectations_logger():
     return logging.getLogger(Loggers.GREAT_EXPECTATIONS.value)
 
+def eject_logger():
+    return logging.getLogger(Loggers.EJECT.value)
 
 def set_loggers_level(level: Union[int, str] = logging.INFO):
     """

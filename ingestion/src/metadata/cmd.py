@@ -27,6 +27,7 @@ from metadata.config.common import load_config_file
 from metadata.ingestion.api.workflow import Workflow
 from metadata.orm_profiler.api.workflow import ProfilerWorkflow
 from metadata.utils.logger import cli_logger, set_loggers_level
+from metadata.eject.api.workflow import EjectWorkflow
 
 logger = cli_logger()
 
@@ -98,6 +99,27 @@ def profile(config: str) -> None:
     ret = workflow.print_status()
     sys.exit(ret)
 
+@metadata.command()
+@click.option(
+    "-c",
+    "--config",
+    type=click.Path(exists=True, dir_okay=False),
+    help="Profiler and Testing Workflow config",
+    required=True,
+)
+def eject(config: str) -> None:
+    """Main command for egesting table and column description back to Trino"""
+    config_file = pathlib.Path(config)
+    workflow_config = load_config_file(config_file)
+
+    try:
+        logger.debug(f"Using config: {workflow_config}")
+        workflow = EjectWorkflow.create(workflow_config)
+    except ValidationError as e:
+        click.echo(e, err=True)
+        sys.exit(1)
+
+    workflow.execute()
 
 @metadata.command()
 @click.option("-h", "--host", help="Webserver Host", type=str, default="0.0.0.0")

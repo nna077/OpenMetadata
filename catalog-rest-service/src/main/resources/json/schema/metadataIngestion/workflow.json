@@ -32,6 +32,9 @@
             },
             {
               "$ref": "mlmodelServiceMetadataPipeline.json"
+            },
+            {
+              "$ref" : "trinoServiceEjectPipeline.json"
             }
           ]
         }
