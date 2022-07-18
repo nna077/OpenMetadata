@@ -125,7 +125,8 @@ class EjectWorkflow:
         copy_service_connection_config = deepcopy(
             self.config.source.serviceConnection.__root__.config
         )
-        session = self.create_engine_for_session(copy_service_connection_config)
+        engine = self.create_engine_for_session(copy_service_connection_config)
+        session = create_and_bind_session(engine)
 
         # create theprocessor
         self.processor = EjectProcessor.create(session)
@@ -133,5 +134,6 @@ class EjectWorkflow:
         # configure the processor
         for database in self.get_database_entities():
             for table_entity in self.get_table_entities(database):
-                self.processor.process(table_entity) # pass in the table_entity
-        r = 1
+                self.processor.process(table_entity)
+
+        self.processor.close()
