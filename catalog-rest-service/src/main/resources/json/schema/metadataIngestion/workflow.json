@@ -34,7 +34,7 @@
               "$ref": "mlmodelServiceMetadataPipeline.json"
             },
             {
-              "$ref" : "trinoServiceEjectPipeline.json"
+              "$ref" : "reverseIngestDatabaseServicePipeline.json"
             }
           ]
         }

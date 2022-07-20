@@ -1,0 +1,22 @@
+{
+  "$id": "123456789",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "reverseIngestDatabaseServicePipeline",
+  "description": "Configuration To Ingest Metadata(description, comment only) Back To Database Services",
+  "definitions": {
+    "reverseConfigType": {
+      "description": "Ingest Source Config Pipeline type",
+      "type": "string",
+      "enum": ["Reverse"],
+      "default": "Reverse"
+    }
+  },
+  "properties": {
+    "type": {
+      "description": "Action Type",
+      "$ref": "#/definitions/reverseConfigType",
+      "default": "Reverse"
+    }
+  },
+  "additionalProperties": false
+}

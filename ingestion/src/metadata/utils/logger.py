@@ -29,7 +29,7 @@ class Loggers(Enum):
     INGESTION = "Ingestion"
     UTILS = "Utils"
     GREAT_EXPECTATIONS = "GreatExpectations"
-    EJECT = "Ejection"
+    REVERSE = "REVERSE"
 
 def ometa_logger():
     return logging.getLogger(Loggers.OMETA.value)
@@ -54,8 +54,8 @@ def utils_logger():
 def great_expectations_logger():
     return logging.getLogger(Loggers.GREAT_EXPECTATIONS.value)
 
-def eject_logger():
-    return logging.getLogger(Loggers.EJECT.value)
+def reverse_logger():
+    return logging.getLogger(Loggers.REVERSE.value)
 
 def set_loggers_level(level: Union[int, str] = logging.INFO):
     """
@@ -68,4 +68,4 @@ def set_loggers_level(level: Union[int, str] = logging.INFO):
     ingestion_logger().setLevel(level)
     utils_logger().setLevel(level)
     great_expectations_logger().setLevel(level)
-    eject_logger().setLevel(level)
+    reverse_logger().setLevel(level)
