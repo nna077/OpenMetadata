@@ -21,14 +21,14 @@ class ReverseStatus(ProcessorStatus):
     """
     Keep track of which metadata have been pushed to a database service
     """
-    tests: List[str] = field(default_factory=list)
+    items: List[str] = field(default_factory=list)
 
     def table_status(self, record: str, type) -> None:
-        self.tests.append(record)
+        self.items.append(record)
         logger.info(f"Table metadata pushed for: {record}")
 
     def column_status(self, record: str, type) -> None:
-        self.tests.append(record)
+        self.items.append(record)
         logger.info(f"Column metadata pushed for: {record}")
 
 class ReverseProcessor(Processor[Table]):
