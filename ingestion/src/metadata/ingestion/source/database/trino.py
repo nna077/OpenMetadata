@@ -16,7 +16,8 @@ from textwrap import dedent
 from typing import Any, Dict, Iterable, List, Optional, Tuple
 
 import click
-from sqlalchemy import inspect, sql, util
+from sqlalchemy.exc import SQLAlchemyError
+from sqlalchemy import inspect, sql, util, text
 from sqlalchemy.engine.base import Connection
 from sqlalchemy.sql import sqltypes
 from trino.sqlalchemy import datatype
@@ -28,6 +29,7 @@ from metadata.generated.schema.entity.services.connections.database.trinoConnect
 from metadata.generated.schema.entity.services.connections.metadata.openMetadataConnection import (
     OpenMetadataConnection,
 )
+from metadata.generated.schema.entity.data.table import Column
 from metadata.generated.schema.metadataIngestion.workflow import (
     Source as WorkflowSource,
 )
@@ -159,3 +161,15 @@ class TrinoSource(CommonDbSourceService):
     def get_database_names(self) -> Iterable[str]:
         self.inspector = inspect(self.engine)
         yield self.trino_connection.catalog
+
+    def update_column_description(self, columns : List[Column], schema_name : str, table_name : str):
+        try:
+            path = schema_name + "." + table_name
+            query = "Show Columns In {}".format(path)
+            cols = self.engine.connect().execute(text(query))
+
+            for (column, col) in zip(columns, cols):
+                column.description = col["Comment"]
+        except SQLAlchemyError:
+            logger.debug("")
+            logger.error("Unable to find descriptions/comments for Columns In Trino")

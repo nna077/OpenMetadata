@@ -283,6 +283,9 @@ class CommonDbSourceService(
                 inspector=self.inspector,
             )
 
+            if self.config.type == 'trino':
+                self.update_column_description(columns, schema_name, table_name)
+
             table_request = CreateTableRequest(
                 name=table_name,
                 tableType=table_type,
