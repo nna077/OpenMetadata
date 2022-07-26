@@ -24,10 +24,9 @@ from metadata.cli.backup import run_backup
 from metadata.cli.docker import run_docker
 from metadata.cli.ingest import run_ingest
 from metadata.config.common import load_config_file
-from metadata.ingestion.api.workflow import Workflow
 from metadata.orm_profiler.api.workflow import ProfilerWorkflow
 from metadata.utils.logger import cli_logger, set_loggers_level
-from metadata.eject.api.workflow import EjectWorkflow
+from metadata.reverse_ingest.api.workflow import ReverseWorkflow
 
 logger = cli_logger()
 
@@ -104,22 +103,23 @@ def profile(config: str) -> None:
     "-c",
     "--config",
     type=click.Path(exists=True, dir_okay=False),
-    help="Profiler and Testing Workflow config",
+    help="Workflow for Pushing Metadata To Database Pipeline Services",
     required=True,
 )
-def eject(config: str) -> None:
-    """Main command for egesting table and column description back to Trino"""
+def reverse(config: str) -> None:
+    """Main command for updating metadata across database services"""
     config_file = pathlib.Path(config)
     workflow_config = load_config_file(config_file)
 
     try:
         logger.debug(f"Using config: {workflow_config}")
-        workflow = EjectWorkflow.create(workflow_config)
+        workflow = ReverseWorkflow.create(workflow_config)
     except ValidationError as e:
         click.echo(e, err=True)
         sys.exit(1)
 
     workflow.execute()
+    workflow.stop()
 
 @metadata.command()
 @click.option("-h", "--host", help="Webserver Host", type=str, default="0.0.0.0")
