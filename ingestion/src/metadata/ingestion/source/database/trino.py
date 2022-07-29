@@ -36,7 +36,7 @@ from metadata.generated.schema.metadataIngestion.workflow import (
 from metadata.ingestion.api.source import InvalidSourceException
 from metadata.ingestion.source.database.common_db_source import CommonDbSourceService
 from metadata.utils.logger import ingestion_logger
-from metadata.utils.sql_queries import TRINO_GET_COLUMNS
+from metadata.utils.sql_queries import TRINO_GET_COLUMNS, TRINO_SHOW_COLUMN_COMMENT
 
 logger = ingestion_logger()
 ROW_DATA_TYPE = "row"
@@ -118,8 +118,16 @@ def _get_columns(
         elif type_opts and type_name == ARRAY_DATA_TYPE:
             column["raw_data_type"] = parse_array_data_type(type_str)
         columns.append(column)
-    return columns
 
+    # add column comment trino
+    path = schema + "." + table_name
+    query = dedent(TRINO_SHOW_COLUMN_COMMENT).format(path)
+    cols = connection.execute(sql.text(query))
+    for col in cols:
+        for column in columns:
+            if column['name'] == col['Column']:
+                column['comment'] = col['Comment']
+    return columns
 
 TrinoDialect._get_columns = _get_columns  # pylint: disable=protected-access
 

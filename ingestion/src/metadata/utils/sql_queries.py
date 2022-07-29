@@ -15,7 +15,7 @@ REDSHIFT_SQL_STATEMENT = """
           AND aborted = 0
           AND starttime >= '{start_time}'
           AND starttime < '{end_time}'
-          
+
   ),
   full_queries AS (
     SELECT
@@ -173,7 +173,7 @@ REDSHIFT_GET_SCHEMA_COLUMN_INFO = """
             """
 
 SNOWFLAKE_SQL_STATEMENT = """
-        SELECT 
+        SELECT
           query_type,
           query_text,
           user_name,
@@ -295,7 +295,7 @@ NEO4J_AMUNDSEN_DASHBOARD_QUERY = textwrap.dedent(
 
 VERTICA_GET_COLUMNS = """
         SELECT column_name, data_type, column_default, is_nullable, comment
-        FROM v_catalog.columns col left join v_catalog.comments com on col.table_id=com.object_id and com.object_type='COLUMN' and col.column_name=com.child_object  
+        FROM v_catalog.columns col left join v_catalog.comments com on col.table_id=com.object_id and com.object_type='COLUMN' and col.column_name=com.child_object
         WHERE lower(table_name) = '{table}'
         AND {schema_condition}
         UNION ALL
@@ -381,7 +381,7 @@ select TABLE_NAME from information_schema.tables where TABLE_SCHEMA = '{}' and T
 
 SNOWFLAKE_GET_COMMENTS = """
     select COMMENT
-    from information_schema.TABLES 
+    from information_schema.TABLES
     WHERE TABLE_SCHEMA = '{schema_name}'
       AND TABLE_NAME = '{table_name}'
 """
@@ -416,3 +416,5 @@ TRINO_GET_COLUMNS = """
         AND "table_name" = :table
     ORDER BY "ordinal_position" ASC
 """
+
+TRINO_SHOW_COLUMN_COMMENT = "SHOW COLUMNS IN {}"
